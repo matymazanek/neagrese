@@ -479,6 +479,174 @@
       line-height: 1.75;
     }
 
+    /* --- TAXES --- */
+    .taxes { background: var(--white); }
+    .tax-bar-section { margin-bottom: 2.5rem; }
+    .tax-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+    .tax-bar-label span:last-child { color: var(--gold); }
+    .tax-bar {
+      height: 32px;
+      background: var(--light);
+      border-radius: 50px;
+      overflow: hidden;
+    }
+    .tax-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #e74c3c, var(--gold));
+      border-radius: 50px;
+      width: 0;
+      transition: width 1.5s ease;
+    }
+    .tax-breakdown {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+    .tax-item {
+      background: var(--light);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .tax-item:hover { transform: translateY(-3px); }
+    .tax-item .tax-pct {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #e74c3c;
+      display: block;
+    }
+    .tax-item .tax-name {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+    }
+    .tax-where {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .tax-where-card {
+      background: var(--light);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      transition: transform 0.2s;
+    }
+    .tax-where-card:hover { transform: translateY(-3px); }
+    .tax-where-card .tw-icon { font-size: 2rem; margin-bottom: 0.75rem; display: block; }
+    .tax-where-card h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+    .tax-where-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+    .tax-verdict {
+      background: #fdf2f2;
+      border-left: 4px solid #e74c3c;
+      border-radius: var(--radius);
+      padding: 2rem;
+      max-width: 820px;
+    }
+    .tax-verdict h3 { font-size: 1.15rem; color: #c0392b; margin-bottom: 0.5rem; }
+    .tax-verdict p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.75; }
+
+    /* --- EDUCATION --- */
+    .education { background: var(--white); }
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .edu-card {
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .edu-card.state {
+      background: #fdf2f2;
+      border-left: 4px solid #e74c3c;
+    }
+    .edu-card.free {
+      background: #f2fdf5;
+      border-left: 4px solid #27ae60;
+    }
+    .edu-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.75rem;
+    }
+    .edu-card.state h3 { color: #c0392b; }
+    .edu-card.free h3 { color: #27ae60; }
+    .edu-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .edu-card ul li {
+      padding: 0.5rem 0;
+      padding-left: 1.4rem;
+      position: relative;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .edu-card ul li:last-child { border-bottom: none; }
+    .edu-card.state ul li::before { content: '✗'; position: absolute; left: 0; color: #e74c3c; font-weight: 700; }
+    .edu-card.free ul li::before { content: '✓'; position: absolute; left: 0; color: #27ae60; font-weight: 700; }
+    @media (max-width: 768px) {
+      .edu-grid { grid-template-columns: 1fr; }
+    }
+
+    /* --- ROADMAP --- */
+    .roadmap { background: linear-gradient(135deg, #1e1e1e 0%, #2a2420 100%); color: var(--white); }
+    .roadmap .section-subtitle { color: #999; }
+    .roadmap-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      counter-reset: step;
+    }
+    .roadmap-step {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 2rem;
+      position: relative;
+      transition: border-color 0.2s, transform 0.2s;
+      counter-increment: step;
+    }
+    .roadmap-step:hover {
+      border-color: var(--gold);
+      transform: translateY(-3px);
+    }
+    .roadmap-step::before {
+      content: counter(step);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      background: var(--gold);
+      color: var(--dark);
+      font-weight: 800;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    .roadmap-step h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--white);
+    }
+    .roadmap-step p {
+      font-size: 0.95rem;
+      color: #aaa;
+      line-height: 1.7;
+    }
+
     /* --- FAQ --- */
     .faq { background: var(--light); }
     .faq-list { max-width: 780px; }
@@ -649,11 +817,14 @@
   <div class="logo">SVOBODA FUNGUJE</div>
   <div class="links" id="navLinks">
     <a href="#problemy">Problémy</a>
+    <a href="#dane">Daně</a>
     <a href="#principy">Principy</a>
     <a href="#nap">NAP</a>
     <a href="#vznik-statu">Vznik států</a>
     <a href="#priklady">Příklady</a>
     <a href="#citaty">Citáty</a>
+    <a href="#skolstvi">Školství</a>
+    <a href="#cesta">Cesta</a>
     <a href="#faq">Otázky</a>
     <a href="#zdroje">Zdroje</a>
   </div>
@@ -739,6 +910,90 @@
         <h3>Ztráta svobody</h3>
         <p>Stát rozhoduje co smíte koupit, prodat, kde stavět, koho zaměstnat. Vaše tělo, váš majetek, vaše volba – ale jen na papíře.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAXES -->
+<section class="taxes" id="dane">
+  <div class="container">
+    <div class="section-label">Kam mizí vaše peníze</div>
+    <h2 class="section-title">Kolik skutečně platíte na daních?</h2>
+    <p class="section-subtitle">Myslíte si, že platíte 15 % daň z příjmu? Realita je mnohem horší. Když sečtete všechny daně a odvody, stát vám bere většinu toho, co vyděláte.</p>
+
+    <div class="tax-bar-section">
+      <div class="tax-bar-label">
+        <span>Celková daňová zátěž zaměstnance v ČR</span>
+        <span>~63 %</span>
+      </div>
+      <div class="tax-bar">
+        <div class="tax-bar-fill" data-width="63"></div>
+      </div>
+    </div>
+
+    <h3 style="font-size: 1.2rem; margin-bottom: 1.2rem;">Z čeho se to skládá?</h3>
+    <div class="tax-breakdown">
+      <div class="tax-item">
+        <span class="tax-pct">15 %</span>
+        <span class="tax-name">Daň z příjmu</span>
+      </div>
+      <div class="tax-item">
+        <span class="tax-pct">6,5 %</span>
+        <span class="tax-name">Zdravotní pojištění (zaměstnanec)</span>
+      </div>
+      <div class="tax-item">
+        <span class="tax-pct">6,5 %</span>
+        <span class="tax-name">Sociální pojištění (zaměstnanec)</span>
+      </div>
+      <div class="tax-item">
+        <span class="tax-pct">9 %</span>
+        <span class="tax-name">Zdravotní (zaměstnavatel)</span>
+      </div>
+      <div class="tax-item">
+        <span class="tax-pct">24,8 %</span>
+        <span class="tax-name">Sociální (zaměstnavatel)</span>
+      </div>
+      <div class="tax-item">
+        <span class="tax-pct">21 %</span>
+        <span class="tax-name">DPH na většinu zboží</span>
+      </div>
+      <div class="tax-item">
+        <span class="tax-pct">?? %</span>
+        <span class="tax-name">Spotřební daně (palivo, alkohol, tabák)</span>
+      </div>
+      <div class="tax-item">
+        <span class="tax-pct">?? %</span>
+        <span class="tax-name">Daň z nemovitosti, silniční, ekologická...</span>
+      </div>
+    </div>
+
+    <h3 style="font-size: 1.2rem; margin-bottom: 1.2rem;">Kam ty peníze jdou?</h3>
+    <div class="tax-where">
+      <div class="tax-where-card">
+        <span class="tw-icon">🏛️</span>
+        <h3>Byrokracie a úřady</h3>
+        <p>Stovky tisíc úředníků, kteří spravují systém sám pro sebe. Administrativa roste rychleji než služby, které má poskytovat.</p>
+      </div>
+      <div class="tax-where-card">
+        <span class="tw-icon">💰</span>
+        <h3>Dotace a subvence</h3>
+        <p>Stát bere peníze efektivním firmám a dává je neefektivním. Politici rozhodují o tom, kdo uspěje – ne trh a zákazníci.</p>
+      </div>
+      <div class="tax-where-card">
+        <span class="tw-icon">🏗️</span>
+        <h3>Předražené zakázky</h3>
+        <p>Stavby za trojnásobek tržní ceny, IT systémy za miliardy, které nefungují. Bez osobní odpovědnosti není motivace šetřit.</p>
+      </div>
+      <div class="tax-where-card">
+        <span class="tw-icon">📉</span>
+        <h3>Splátky státního dluhu</h3>
+        <p>Vláda utrácí víc než vybere, zbytek doplní dluhem. Úroky platíte vy a vaše děti – za rozhodnutí, ke kterým jste nikdy nesouhlasili.</p>
+      </div>
+    </div>
+
+    <div class="tax-verdict">
+      <h3>Proč jsou daně z pohledu ankapu nelegitimní?</h3>
+      <p>Zkuste neplatit daně a uvidíte, co se stane – přijdou ozbrojení lidé a zavřou vás. Daně nejsou dobrovolný příspěvek na společné služby. Jsou to peníze vybrané pod hrozbou násilí. Kdyby totéž dělal kdokoliv jiný než stát, říkali bychom tomu loupež. Fakt, že se lupiči říká „vláda" a loupeži „daňový zákon", na podstatě nic nemění.</p>
     </div>
   </div>
 </section>
@@ -995,6 +1250,76 @@
   </div>
 </section>
 
+<!-- EDUCATION -->
+<section class="education" id="skolstvi">
+  <div class="container">
+    <div class="section-label">Vzdělávání</div>
+    <h2 class="section-title">Proč státní školství selhává?</h2>
+    <p class="section-subtitle">Stát má monopol na vzdělávání vašich dětí. Určuje co se učí, jak se učí a kdo smí učit. Výsledek? Systém, který slouží státu, ne dětem.</p>
+
+    <div class="edu-grid">
+      <div class="edu-card state">
+        <h3>Státní školství</h3>
+        <ul>
+          <li>Jednotné osnovy pro všechny – bez ohledu na talent a zájmy dítěte</li>
+          <li>Učí poslušnost a memorování, ne kritické myšlení</li>
+          <li>Financováno z daní – platíte i když nesouhlasíte s obsahem</li>
+          <li>Povinná školní docházka pod hrozbou sankcí</li>
+          <li>Učitelé chráněni systémem, ne kvalitou své práce</li>
+          <li>Osnovy psané politiky, ne pedagogy a rodiči</li>
+        </ul>
+      </div>
+      <div class="edu-card free">
+        <h3>Svobodné vzdělávání</h3>
+        <ul>
+          <li>Rodiče volí školu podle potřeb svého dítěte</li>
+          <li>Konkurence mezi školami zvyšuje kvalitu a snižuje cenu</li>
+          <li>Různé přístupy – Montessori, unschooling, online vzdělávání</li>
+          <li>Učitelé motivováni spokojeností rodičů a žáků</li>
+          <li>Vzdělávání přizpůsobené tempu a zájmům každého dítěte</li>
+          <li>Reálné dovednosti místo zastaralých osnov</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="roadmap" id="cesta">
+  <div class="container">
+    <div class="section-label">Jak na to</div>
+    <h2 class="section-title" style="color: var(--white);">Cesta k anarchokapitalismu</h2>
+    <p class="section-subtitle">Nejde o revoluci ani o násilné svržení systému. Cesta vede postupným zmenšováním státu zdola – krok za krokem, rozhodnutí za rozhodnutím.</p>
+
+    <div class="roadmap-steps">
+      <div class="roadmap-step">
+        <h3>Vzdělávejte se a vzdělávejte okolí</h3>
+        <p>Pochopte principy svobodné společnosti. Čtěte, diskutujte, sdílejte myšlenky. Změna začíná v hlavách lidí – ne v parlamentu.</p>
+      </div>
+      <div class="roadmap-step">
+        <h3>Žijte svobodně už teď</h3>
+        <p>Používejte kryptoměny, podporujte lokální podnikatele, vyměňujte se na volném trhu. Čím méně závislosti na státu, tím lépe.</p>
+      </div>
+      <div class="roadmap-step">
+        <h3>Budujte paralelní struktury</h3>
+        <p>Soukromé školy, vzájemné pojišťovny, komunitní spolky, arbitráže. Vytvářejte alternativy ke státním službám zdola.</p>
+      </div>
+      <div class="roadmap-step">
+        <h3>Požadujte decentralizaci</h3>
+        <p>Posilujte samosprávu obcí a regionů. Čím blíže je rozhodování lidem, tím těžší je zneužít moc. Stát se zmenšuje odspoda.</p>
+      </div>
+      <div class="roadmap-step">
+        <h3>Odmítejte legitimitu donucení</h3>
+        <p>Přestaňte přijímat, že někdo má právo vám vládnout jen proto, že vyhrál volby. Morální autorita nevzniká z hlasovací urny.</p>
+      </div>
+      <div class="roadmap-step">
+        <h3>Postupná privatizace služeb</h3>
+        <p>Každá služba, kterou převezme trh od státu, je krok správným směrem. Ne revoluce, ale evoluce – stát se stává zbytečným, protože lidé jeho služby nepotřebují.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- RESOURCES -->
 <section class="resources" id="zdroje">
   <div class="container">
@@ -1042,7 +1367,8 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>&copy; 2026 Svoboda funguje. Vytvořeno s přesvědčením, že dobrovolná spolupráce je lepší než donucení.</p>
+  <p>&copy; 2026 Svoboda funguje. Vytvořil Matěj Mazánek.</p>
+  <p style="margin-top: 0.4rem;">Vytvořeno s přesvědčením, že dobrovolná spolupráce je lepší než donucení.</p>
 </footer>
 
 <script>
@@ -1103,7 +1429,19 @@
   counters.forEach(c => observer.observe(c));
 
   // Smooth reveal on scroll
-  const revealEls = document.querySelectorAll('.problem-card, .principle-card, .nap-content, .timeline-item, .origin-bottom, .example-card, .quote-card, .resource-card, .faq-item');
+  // Tax bar animation
+const taxBars = document.querySelectorAll('.tax-bar-fill[data-width]');
+const taxObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.width = entry.target.dataset.width + '%';
+        taxObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  taxBars.forEach(b => taxObserver.observe(b));
+
+  const revealEls = document.querySelectorAll('.problem-card, .principle-card, .nap-content, .timeline-item, .origin-bottom, .example-card, .quote-card, .tax-item, .tax-where-card, .tax-verdict, .edu-card, .roadmap-step, .resource-card, .faq-item');
   const revealStyle = document.createElement('style');
   revealStyle.textContent = `
     .reveal-hidden { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
