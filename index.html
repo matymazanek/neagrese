@@ -82,62 +82,150 @@
     /* --- HERO --- */
     .hero {
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background: linear-gradient(135deg, var(--dark) 0%, #2A2420 50%, var(--dark2) 100%);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--dark);
       color: var(--white);
-      padding: 6rem 2rem 4rem;
+      padding-top: 64px;
       position: relative;
       overflow: hidden;
     }
-    .hero::before {
-      content: '';
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 3rem 4rem 5rem;
+    }
+    .hero-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: linear-gradient(135deg, #1a1610 0%, #0d0d0d 100%);
+      overflow: hidden;
+    }
+    .geo-container { position: relative; width: 100%; height: 100%; }
+    .geo-circle {
       position: absolute;
-      width: 800px; height: 800px;
-      background: radial-gradient(circle, rgba(212,168,67,0.15) 0%, transparent 60%);
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      animation: heroPulse 6s ease-in-out infinite;
+      border: 2px solid rgba(212,168,67,0.3);
+      border-radius: 50%;
+      animation: geoRotate 20s linear infinite;
     }
-    .hero::after {
-      content: '';
+    .geo-circle:nth-child(1) { width: 300px; height: 300px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+    .geo-circle:nth-child(2) { width: 220px; height: 220px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-duration: 15s; animation-direction: reverse; border-color: rgba(212,168,67,0.5); }
+    .geo-circle:nth-child(3) { width: 140px; height: 140px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-duration: 10s; border-color: var(--gold); }
+    .geo-dot {
       position: absolute;
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(212,168,67,0.08) 0%, transparent 70%);
-      top: 20%; left: 15%;
-      animation: heroFloat 8s ease-in-out infinite;
-    }
-    @keyframes heroPulse {
-      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-      50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.7; }
-    }
-    @keyframes heroFloat {
-      0%, 100% { transform: translate(0, 0); }
-      33% { transform: translate(40px, -30px); }
-      66% { transform: translate(-20px, 20px); }
-    }
-    #heroParticles {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-    }
-    .particle {
-      position: absolute;
-      width: 4px; height: 4px;
+      width: 8px; height: 8px;
       background: var(--gold);
       border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 20px rgba(212,168,67,0.6);
+    }
+    .geo-line {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212,168,67,0.4), transparent);
+      top: 50%; left: 10%; right: 10%;
+      animation: geoFade 4s ease-in-out infinite;
+    }
+    .geo-line:nth-child(5) { transform: rotate(60deg); animation-delay: 1s; }
+    .geo-line:nth-child(6) { transform: rotate(120deg); animation-delay: 2s; }
+    @keyframes geoRotate {
+      from { transform: translate(-50%,-50%) rotate(0deg); }
+      to { transform: translate(-50%,-50%) rotate(360deg); }
+    }
+    @keyframes geoFade {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.8; }
+    }
+    .hero h1 {
+      text-align: left;
+      animation: heroSlideIn 0.8s ease forwards;
       opacity: 0;
-      animation: particleRise linear infinite;
     }
-    @keyframes particleRise {
-      0% { opacity: 0; transform: translateY(0) scale(0); }
-      15% { opacity: 0.6; }
-      85% { opacity: 0.3; }
-      100% { opacity: 0; transform: translateY(-100vh) scale(1); }
+    .hero p {
+      text-align: left;
+      margin: 0 0 2.5rem;
+      animation: heroSlideIn 0.8s ease 0.3s forwards;
+      opacity: 0;
     }
+    .hero .btn-wrap {
+      justify-content: flex-start;
+      animation: heroSlideIn 0.8s ease 0.5s forwards;
+      opacity: 0;
+    }
+    .hero .stat-row {
+      border-top-color: #333;
+      animation: heroSlideIn 0.8s ease 0.7s forwards;
+      opacity: 0;
+    }
+    @keyframes heroSlideIn {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .hero-accent-line {
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin-bottom: 1.5rem;
+      animation: lineGrow 1s ease 0.2s forwards;
+    }
+    @keyframes lineGrow {
+      to { width: 80px; }
+    }
+    @media (max-width: 1024px) {
+      .hero-left { padding: 3rem 2.5rem; }
+    }
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .hero-right {
+        height: 250px;
+        order: -1;
+      }
+      .geo-circle:nth-child(1) { width: 180px; height: 180px; }
+      .geo-circle:nth-child(2) { width: 130px; height: 130px; }
+      .geo-circle:nth-child(3) { width: 80px; height: 80px; }
+      .hero-left {
+        padding: 2rem 1.5rem 3rem;
+      }
+      .hero h1, .hero p { text-align: center; }
+      .hero h1 { font-size: 1.8rem; }
+      .hero p { font-size: 0.95rem; }
+      .hero-accent-line { margin: 0 auto 1.5rem; }
+      @keyframes heroSlideIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .hero .btn-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero .stat-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-top: 2rem;
+        padding-top: 2rem;
+      }
+      .stat .number { font-size: 1.8rem; }
+      .stat .label { font-size: 0.8rem; }
+    }
+    @media (max-width: 420px) {
+      .hero-right { height: 200px; }
+      .hero-left { padding: 1.5rem 1.25rem 2.5rem; }
+      .hero h1 { font-size: 1.5rem; }
+      .hero .stat-row { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+      .stat .number { font-size: 1.5rem; }
+    }
+    #heroParticles { display: none; }
+    .particle { display: none; }
+    @keyframes heroPulse { 0%,100%{} }
+    @keyframes heroFloat { 0%,100%{} }
 
     /* --- ANIMATED ICONS --- */
     .icon, .tw-icon, .r-icon, .nap-icon {
@@ -256,36 +344,108 @@
       margin-bottom: 3rem;
     }
 
-    /* --- PROBLEMS --- */
-    .problems { background: var(--light); }
-    .problem-grid {
+    /* --- MYTHS --- */
+    .myths { background: var(--light); }
+    .myths-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1.5rem;
     }
-    .problem-card {
-      background: var(--white);
+    .myth-card {
+      perspective: 1000px;
+      height: 260px;
+      cursor: pointer;
+    }
+    .myth-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s ease;
+      transform-style: preserve-3d;
+    }
+    .myth-card.flipped .myth-card-inner {
+      transform: rotateY(180deg);
+    }
+    .myth-front, .myth-back {
+      position: absolute;
+      inset: 0;
       border-radius: var(--radius);
       padding: 2rem;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .myth-front {
+      background: var(--white);
       box-shadow: var(--shadow);
       border-left: 4px solid #e74c3c;
-      transition: transform 0.2s;
     }
-    .problem-card:hover { transform: translateY(-3px); }
-    .problem-card .icon {
+    .myth-front .myth-icon {
       font-size: 2rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
       display: block;
     }
-    .problem-card h3 {
+    .myth-front .myth-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #e74c3c;
+      background: rgba(231,76,60,0.1);
+      padding: 0.25rem 0.7rem;
+      border-radius: 50px;
+      margin-bottom: 0.75rem;
+      width: fit-content;
+    }
+    .myth-front h3 {
       font-size: 1.15rem;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.5rem;
       color: var(--dark);
     }
-    .problem-card p {
-      font-size: 0.95rem;
+    .myth-front .myth-hint {
+      font-size: 0.8rem;
       color: var(--text-muted);
-      line-height: 1.65;
+      margin-top: auto;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--light2);
+    }
+    .myth-back {
+      background: linear-gradient(135deg, #1a3a1a 0%, #0d1f0d 100%);
+      box-shadow: var(--shadow);
+      border-left: 4px solid #27ae60;
+      transform: rotateY(180deg);
+    }
+    .myth-back .myth-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #27ae60;
+      background: rgba(39,174,96,0.15);
+      padding: 0.25rem 0.7rem;
+      border-radius: 50px;
+      margin-bottom: 0.75rem;
+      width: fit-content;
+    }
+    .myth-back h3 {
+      font-size: 1.05rem;
+      color: #27ae60;
+      margin-bottom: 0.5rem;
+    }
+    .myth-back p {
+      font-size: 0.9rem;
+      color: #ccc;
+      line-height: 1.7;
+    }
+    .myth-back .myth-hint {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: auto;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
 
     /* --- PRINCIPLES --- */
@@ -630,6 +790,139 @@
     .tax-where-card .tw-icon { font-size: 2rem; margin-bottom: 0.75rem; display: block; }
     .tax-where-card h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
     .tax-where-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+    /* --- TAX CALCULATOR --- */
+    .tax-calc {
+      background: var(--light);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow);
+    }
+    .tax-calc h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+    .tax-calc-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .tax-calc-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .tax-calc-input-wrap label {
+      font-weight: 600;
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+    .tax-calc-input {
+      flex: 1;
+      min-width: 180px;
+      padding: 0.8rem 1.2rem;
+      border: 2px solid var(--light2);
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-family: inherit;
+      font-weight: 700;
+      background: var(--white);
+      color: var(--dark);
+      transition: border-color 0.2s;
+    }
+    .tax-calc-input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    .tax-calc-input-wrap span {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+    .tax-calc-results {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .tax-calc-item {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 1.2rem;
+      text-align: center;
+    }
+    .tax-calc-item .tc-value {
+      font-size: 1.6rem;
+      font-weight: 800;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+    .tax-calc-item .tc-value.green { color: #27ae60; }
+    .tax-calc-item .tc-value.red { color: #e74c3c; }
+    .tax-calc-item .tc-value.gold { color: var(--gold); }
+    .tax-calc-item .tc-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .tax-calc-bar {
+      height: 40px;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      margin-bottom: 0.75rem;
+    }
+    .tax-calc-bar div {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--white);
+      transition: width 0.5s ease;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .tcb-income { background: #e74c3c; }
+    .tcb-health-e { background: #e67e22; }
+    .tcb-social-e { background: #d35400; }
+    .tcb-health-r { background: #f39c12; }
+    .tcb-social-r { background: #c0392b; }
+    .tcb-dph { background: #8e44ad; }
+    .tcb-net { background: #27ae60; }
+    .tax-calc-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .tax-calc-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .tax-calc-legend span::before {
+      content: '';
+      width: 10px; height: 10px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+    .legend-income::before { background: #e74c3c; }
+    .legend-health-e::before { background: #e67e22; }
+    .legend-social-e::before { background: #d35400; }
+    .legend-health-r::before { background: #f39c12; }
+    .legend-social-r::before { background: #c0392b; }
+    .legend-dph::before { background: #8e44ad; }
+    .legend-net::before { background: #27ae60; }
+    @media (max-width: 768px) {
+      .tax-calc { padding: 1.5rem; }
+      .tax-calc-results { grid-template-columns: repeat(2, 1fr); }
+      .tax-calc-bar div { font-size: 0; }
+    }
+
     .tax-verdict {
       background: #fdf2f2;
       border-left: 4px solid #e74c3c;
@@ -732,57 +1025,89 @@
       line-height: 1.7;
     }
 
-    /* --- FAQ --- */
-    .faq { background: var(--light); }
-    .faq-list { max-width: 780px; }
-    .faq-item {
-      background: var(--white);
-      border-radius: var(--radius);
-      margin-bottom: 0.75rem;
-      box-shadow: var(--shadow);
+    /* --- APPEAL --- */
+    .appeal {
+      background: linear-gradient(135deg, #1a0a0a 0%, #0d0d0d 50%, #1a0f05 100%);
+      color: var(--white);
+      position: relative;
       overflow: hidden;
     }
-    .faq-question {
-      width: 100%;
-      background: none;
-      border: none;
-      padding: 1.4rem 1.8rem;
-      font-size: 1.05rem;
-      font-weight: 600;
-      text-align: left;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: var(--text);
-      font-family: inherit;
-      line-height: 1.5;
+    .appeal::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(231,76,60,0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse at 70% 50%, rgba(212,168,67,0.06) 0%, transparent 60%);
     }
-    .faq-question::after {
-      content: '+';
-      font-size: 1.5rem;
-      font-weight: 300;
+    .appeal .container { position: relative; }
+    .appeal-content {
+      max-width: 780px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .appeal-icon {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: 1.5rem;
+      animation: appealPulse 2s ease-in-out infinite;
+    }
+    @keyframes appealPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    .appeal h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 2rem;
+    }
+    .appeal h2 .red { color: #e74c3c; }
+    .appeal h2 .gold { color: var(--gold); }
+    .appeal-quote {
+      font-size: 1.2rem;
+      font-style: italic;
+      font-family: Georgia, serif;
       color: var(--gold);
-      transition: transform 0.3s;
-      flex-shrink: 0;
-      margin-left: 1rem;
+      margin-bottom: 2.5rem;
+      padding: 1.5rem 2rem;
+      border-left: 3px solid var(--gold);
+      border-right: 3px solid var(--gold);
+      text-align: center;
     }
-    .faq-item.open .faq-question::after {
-      transform: rotate(45deg);
+    .appeal-blocks {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+      text-align: left;
     }
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s ease, padding 0.35s ease;
+    .appeal-block {
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
     }
-    .faq-item.open .faq-answer {
-      max-height: 500px;
+    .appeal-block h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
     }
-    .faq-answer-inner {
-      padding: 0 1.8rem 1.4rem;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.75;
+    .appeal-block.danger h3 { color: #e74c3c; }
+    .appeal-block.hope h3 { color: var(--gold); }
+    .appeal-block p {
+      font-size: 0.9rem;
+      color: #999;
+      line-height: 1.7;
+    }
+    .appeal-final {
+      font-size: 1.1rem;
+      color: #ccc;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .appeal-final strong { color: var(--white); }
+    @media (max-width: 768px) {
+      .appeal-blocks { grid-template-columns: 1fr; }
+      .appeal-quote { font-size: 1rem; padding: 1rem 1.2rem; }
     }
 
     /* --- RESOURCES --- */
@@ -890,8 +1215,20 @@
       .hamburger { display: flex; }
       section { padding: 3.5rem 1.25rem; }
       .btn-outline { margin-left: 0; margin-top: 0.75rem; }
-      .hero .btn-wrap { display: flex; flex-direction: column; align-items: center; }
-      .stat-row { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+      .problem-grid,
+      .principles-grid,
+      .example-grid,
+      .quotes-grid,
+      .resources-grid,
+      .roadmap-steps { grid-template-columns: 1fr; }
+      .edu-grid { grid-template-columns: 1fr; }
+      .nap-content { grid-template-columns: 1fr; text-align: center; }
+      .nap-circle { width: 200px; height: 200px; margin: 0 auto 2rem; }
+      .nap-points { text-align: left; }
+      .section-title { font-size: 1.6rem; }
+      .section-subtitle { font-size: 0.95rem; }
+      .tax-breakdown { grid-template-columns: repeat(2, 1fr); }
+      .tax-where { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -899,7 +1236,7 @@
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="logo">VYDEJME SE CESTOU SVOBODY</div>
+  <div class="logo">SKUTEČNÁ SVOBODA</div>
   <div class="links" id="navLinks">
     <a href="#problemy">Problémy</a>
     <a href="#dane">Daně</a>
@@ -910,8 +1247,8 @@
     <a href="#citaty">Citáty</a>
     <a href="#skolstvi">Školství</a>
     <a href="#cesta">Cesta</a>
-    <a href="#faq">Otázky</a>
     <a href="#zdroje">Zdroje</a>
+    <a href="#apel">Otevřme oči</a>
   </div>
   <button class="hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -920,81 +1257,164 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div id="heroParticles"></div>
-  <div class="hero-content">
-    <h1>Co kdybychom byli <span>opravdu svobodní?</span></h1>
-    <p>Zásadně odmítáme agresi – a tím i agresi státu. Věříme, že lidé dokážou spolupracovat, obchodovat a řešit problémy lépe bez donucení. Ukážu vám, jak se zorientovat.</p>
-    <div class="btn-wrap">
-      <a href="#problemy" class="btn btn-gold">Zjistit více</a>
-      <a href="#faq" class="btn btn-outline">Časté otázky</a>
-    </div>
+  <div class="hero-left">
+    <div class="hero-content">
+      <div class="hero-accent-line"></div>
+      <h1>Co kdybychom byli <span>opravdu svobodní?</span></h1>
+      <p>Zásadně odmítáme agresi – a tím i agresi státu. Věříme, že lidé dokážou spolupracovat, obchodovat a řešit problémy lépe bez donucení. Ukážu vám, jak se zorientovat.</p>
+      <div class="btn-wrap">
+        <a href="#problemy" class="btn btn-gold">Zjistit více</a>
+        <a href="#faq" class="btn btn-outline">Časté otázky</a>
+      </div>
 
-    <div class="stat-row">
-      <div class="stat">
-        <span class="number" data-target="63">0</span>
-        <span class="label">% daňová zátěž v ČR</span>
+      <div class="stat-row">
+        <div class="stat">
+          <span class="number" data-target="63">0</span>
+          <span class="label">% daňová zátěž v ČR</span>
+        </div>
+        <div class="stat">
+          <span class="number" data-target="400">0</span>
+          <span class="label">miliard Kč – roční náklady byrokracie</span>
+        </div>
+        <div class="stat">
+          <span class="number" data-target="180">0</span>
+          <span class="label">tisíc stran zákonů a předpisů</span>
+        </div>
+        <div class="stat">
+          <span class="number" data-target="42">0</span>
+          <span class="label">% lidí nedůvěřuje vládě</span>
+        </div>
+        <div class="stat">
+          <span class="number" data-target="15">0</span>
+          <span class="label">tisíc úředníků přibylo za 10 let</span>
+        </div>
+        <div class="stat">
+          <span class="number" data-target="53">0</span>
+          <span class="label">% státních zakázek s jedním uchazečem</span>
+        </div>
       </div>
-      <div class="stat">
-        <span class="number" data-target="400">0</span>
-        <span class="label">miliard Kč – roční náklady byrokracie</span>
-      </div>
-      <div class="stat">
-        <span class="number" data-target="180">0</span>
-        <span class="label">tisíc stran zákonů a předpisů</span>
-      </div>
-      <div class="stat">
-        <span class="number" data-target="42">0</span>
-        <span class="label">% lidí nedůvěřuje vládě</span>
-      </div>
-      <div class="stat">
-        <span class="number" data-target="15">0</span>
-        <span class="label">tisíc úředníků přibylo za 10 let</span>
-      </div>
-      <div class="stat">
-        <span class="number" data-target="53">0</span>
-        <span class="label">% státních zakázek s jedním uchazečem</span>
-      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="geo-container">
+      <div class="geo-circle"></div>
+      <div class="geo-circle"></div>
+      <div class="geo-circle"></div>
+      <div class="geo-dot"></div>
+      <div class="geo-line"></div>
+      <div class="geo-line"></div>
     </div>
   </div>
 </section>
 
-<!-- PROBLEMS -->
-<section class="problems" id="problemy">
+<!-- MYTHS VS REALITY -->
+<section class="myths" id="problemy">
   <div class="container">
-    <div class="section-label">Proč to řešit</div>
-    <h2 class="section-title">Co aktuálně nefunguje?</h2>
-    <p class="section-subtitle">Státní zásahy do ekonomiky a života lidí mají reálné důsledky, které pocítí každý z nás.</p>
+    <div class="section-label">Mýty vs. realita</div>
+    <h2 class="section-title">Co vám říkali — a jak to je doopravdy</h2>
+    <p class="section-subtitle">Klikněte na kartu a odkryjte pravdu, kterou vám ve škole neřekli.</p>
 
-    <div class="problem-grid">
-      <div class="problem-card">
-        <span class="icon">💸</span>
-        <h3>Neúnosné daně</h3>
-        <p>Na každou vydělanou korunu zaplatíte státu víc než polovinu – daň z příjmu, DPH, spotřební daně, sociální a zdravotní odvody. Pracujete do léta pro stát.</p>
+    <div class="myths-grid">
+      <div class="myth-card" onclick="this.classList.toggle('flipped')">
+        <div class="myth-card-inner">
+          <div class="myth-front">
+            <span class="myth-icon">💸</span>
+            <span class="myth-tag">Mýtus</span>
+            <h3>„Platíte jen 15 % daň z příjmu"</h3>
+            <div class="myth-hint">Klikněte pro realitu</div>
+          </div>
+          <div class="myth-back">
+            <span class="myth-tag">Realita</span>
+            <h3>Skutečná zátěž je přes 60 %</h3>
+            <p>Daň z příjmu, sociální a zdravotní odvody (i za zaměstnavatele), DPH, spotřební daně... Pracujete do léta pro stát, zbytek roku pro sebe.</p>
+            <div class="myth-hint">Klikněte pro návrat</div>
+          </div>
+        </div>
       </div>
-      <div class="problem-card">
-        <span class="icon">📋</span>
-        <h3>Byrokracie a regulace</h3>
-        <p>Chcete podnikat? Připravte se na stovky formulářů, povolení a kontrol. Regulace dusí malé podnikatele a chrání velké korporace.</p>
+
+      <div class="myth-card" onclick="this.classList.toggle('flipped')">
+        <div class="myth-card-inner">
+          <div class="myth-front">
+            <span class="myth-icon">🏗️</span>
+            <span class="myth-tag">Mýtus</span>
+            <h3>„Bez státu by nikdo nestavěl silnice"</h3>
+            <div class="myth-hint">Klikněte pro realitu</div>
+          </div>
+          <div class="myth-back">
+            <span class="myth-tag">Realita</span>
+            <h3>Stát silnice nestaví — jen zadává zakázky</h3>
+            <p>Silnice staví soukromé firmy. Stát jen vybere daně, přidá byrokracii a korupci, a zaplatí trojnásobek. Soukromý sektor to umí levněji a rychleji.</p>
+            <div class="myth-hint">Klikněte pro návrat</div>
+          </div>
+        </div>
       </div>
-      <div class="problem-card">
-        <span class="icon">🏦</span>
-        <h3>Inflace a dluh</h3>
-        <p>Centrální banka tiskne peníze, vláda se zadlužuje. Výsledek? Vaše úspory ztrácejí hodnotu a budoucí generace platí naše účty.</p>
+
+      <div class="myth-card" onclick="this.classList.toggle('flipped')">
+        <div class="myth-card-inner">
+          <div class="myth-front">
+            <span class="myth-icon">🏦</span>
+            <span class="myth-tag">Mýtus</span>
+            <h3>„Centrální banka chrání ekonomiku"</h3>
+            <div class="myth-hint">Klikněte pro realitu</div>
+          </div>
+          <div class="myth-back">
+            <span class="myth-tag">Realita</span>
+            <h3>Centrální banka způsobuje inflaci</h3>
+            <p>Tiskne peníze, znehodnocuje úspory a vytváří ekonomické bubliny. Vaše koruna dnes koupí zlomek toho, co před 20 lety. To není přirozené — to je politika.</p>
+            <div class="myth-hint">Klikněte pro návrat</div>
+          </div>
+        </div>
       </div>
-      <div class="problem-card">
-        <span class="icon">🏫</span>
-        <h3>Nekvalitní veřejné služby</h3>
-        <p>Školství, zdravotnictví, doprava – stát vybere biliony a služby přesto zaostávají. Bez konkurence není motivace ke zlepšení.</p>
+
+      <div class="myth-card" onclick="this.classList.toggle('flipped')">
+        <div class="myth-card-inner">
+          <div class="myth-front">
+            <span class="myth-icon">🛡️</span>
+            <span class="myth-tag">Mýtus</span>
+            <h3>„Bez policie by nastal chaos"</h3>
+            <div class="myth-hint">Klikněte pro realitu</div>
+          </div>
+          <div class="myth-back">
+            <span class="myth-tag">Realita</span>
+            <h3>Soukromá bezpečnost je efektivnější</h3>
+            <p>Už dnes existuje víc soukromých bezpečnostních pracovníků než policistů. Rozdíl? Soukromá firma přijde o zákazníky, když selže. Státní policie ne.</p>
+            <div class="myth-hint">Klikněte pro návrat</div>
+          </div>
+        </div>
       </div>
-      <div class="problem-card">
-        <span class="icon">⚖️</span>
-        <h3>Nerovnost před zákonem</h3>
-        <p>Politici a úředníci žijí podle jiných pravidel. Stát má monopol na rozhodování o vašem životě – a vy nemáte jinou volbu.</p>
+
+      <div class="myth-card" onclick="this.classList.toggle('flipped')">
+        <div class="myth-card-inner">
+          <div class="myth-front">
+            <span class="myth-icon">⚖️</span>
+            <span class="myth-tag">Mýtus</span>
+            <h3>„Stát zajišťuje rovnost před zákonem"</h3>
+            <div class="myth-hint">Klikněte pro realitu</div>
+          </div>
+          <div class="myth-back">
+            <span class="myth-tag">Realita</span>
+            <h3>Politici žijí podle jiných pravidel</h3>
+            <p>Stát dává imunitu politikům, privilegia úředníkům a regulace psané na míru velkým hráčům. Rovnost před zákonem je iluze — zákon píší ti, kdo z něj těží.</p>
+            <div class="myth-hint">Klikněte pro návrat</div>
+          </div>
+        </div>
       </div>
-      <div class="problem-card">
-        <span class="icon">🔒</span>
-        <h3>Ztráta svobody</h3>
-        <p>Stát rozhoduje co smíte koupit, prodat, kde stavět, koho zaměstnat. Vaše tělo, váš majetek, vaše volba – ale jen na papíře.</p>
+
+      <div class="myth-card" onclick="this.classList.toggle('flipped')">
+        <div class="myth-card-inner">
+          <div class="myth-front">
+            <span class="myth-icon">🤝</span>
+            <span class="myth-tag">Mýtus</span>
+            <h3>„Bez státu by se nikdo nepostaral o chudé"</h3>
+            <div class="myth-hint">Klikněte pro realitu</div>
+          </div>
+          <div class="myth-back">
+            <span class="myth-tag">Realita</span>
+            <h3>Charita a spolky fungují lépe</h3>
+            <p>Historicky byla dobrovolná pomoc hlavním zdrojem podpory — i v dobách mnohem větší chudoby. Stát má motivaci udržovat závislost. Komunity znají místní potřeby lépe.</p>
+            <div class="myth-hint">Klikněte pro návrat</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1050,6 +1470,44 @@
       <div class="tax-item">
         <span class="tax-pct">?? %</span>
         <span class="tax-name">Daň z nemovitosti, silniční, ekologická...</span>
+      </div>
+    </div>
+
+    <div class="tax-calc" id="taxCalc">
+      <h3>Spočítejte si, kolik vám stát bere</h3>
+      <p class="tax-calc-subtitle">Zadejte svůj hrubý měsíční plat a uvidíte, kolik reálně zaplatíte na daních a odvodech.</p>
+      <div class="tax-calc-input-wrap">
+        <label for="grossSalary">Hrubá mzda:</label>
+        <input type="number" id="grossSalary" class="tax-calc-input" value="40000" min="0" step="1000">
+        <span>Kč / měsíc</span>
+      </div>
+      <div class="tax-calc-results" id="taxResults">
+        <div class="tax-calc-item">
+          <span class="tc-value gold" id="tcSuperGross">-</span>
+          <span class="tc-label">Superhrubá cena práce</span>
+        </div>
+        <div class="tax-calc-item">
+          <span class="tc-value red" id="tcTotalTax">-</span>
+          <span class="tc-label">Celkem odvody a daně</span>
+        </div>
+        <div class="tax-calc-item">
+          <span class="tc-value green" id="tcNet">-</span>
+          <span class="tc-label">Čistá mzda</span>
+        </div>
+        <div class="tax-calc-item">
+          <span class="tc-value red" id="tcPercent">-</span>
+          <span class="tc-label">Skutečná daňová zátěž</span>
+        </div>
+      </div>
+      <div class="tax-calc-bar" id="taxBar"></div>
+      <div class="tax-calc-legend">
+        <span class="legend-income">Daň z příjmu</span>
+        <span class="legend-health-e">Zdrav. zaměstnanec</span>
+        <span class="legend-social-e">Soc. zaměstnanec</span>
+        <span class="legend-health-r">Zdrav. zaměstnavatel</span>
+        <span class="legend-social-r">Soc. zaměstnavatel</span>
+        <span class="legend-dph">Odhad DPH</span>
+        <span class="legend-net">Vám zbyde</span>
       </div>
     </div>
 
@@ -1288,54 +1746,6 @@
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="faq" id="faq">
-  <div class="container">
-    <div class="section-label">Časté otázky</div>
-    <h2 class="section-title">Ale co když...?</h2>
-    <p class="section-subtitle">Férové otázky si zaslouží férové odpovědi. Tady jsou nejčastější námitky, které slýcháme.</p>
-
-    <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-question">Kdo by stavěl silnice a infrastrukturu?</button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">Silnice a infrastrukturu by stavěly soukromé firmy – stejně jako to dělají už dnes. Stát silnice nestaví, jen zadává zakázky soukromým firmám a platí je z vašich daní (s přirážkou za byrokracii a korupci). V soukromém systému by silnice financovali ti, kdo je používají – podobně jako dálniční poplatky, ale efektivněji a bez politického rozhodování o tom, kam peníze půjdou.</div>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">Co chudí lidé, kteří si nemohou služby dovolit?</button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">Bez daní a regulací by životní náklady dramaticky klesly. Historicky byla charita a vzájemná pomoc hlavním zdrojem podpory pro potřebné – a to v dobách, kdy byli lidé mnohem chudší. Dobrovolné organizace, pojišťovny, spolky a komunity jsou v pomoci efektivnější než stát, protože znají místní podmínky a nemají motivaci udržovat lidi v závislosti.</div>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">Nevedlo by to k vládě nejsilnějších a monopolům?</button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">Monopoly vznikají a přežívají díky státu – skrze regulace, licence, dotace a legislativu psanou na míru velkým hráčům. Na skutečně volném trhu je vznik trvalého monopolu extrémně obtížný, protože kdokoliv může vstoupit do konkurence. Vláda nejsilnějších? Podívejte se kolem sebe – to už máme. Jmenuje se to stát.</div>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">Kdo by řešil kriminalitu a bezpečnost?</button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">Soukromé bezpečnostní agentury a pojišťovny. Už dnes existuje více soukromých bezpečnostních pracovníků než policistů. Rozdíl? Soukromá firma má motivaci skutečně chránit své klienty – pokud selže, přijde o zákazníky. Státní policie takovou zpětnou vazbu nemá. Spory by řešily soukromé arbitráže, které jsou prokazatelně rychlejší a levnější než státní soudy.</div>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">Není anarchokapitalismus jen utopie?</button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">Utopie je věřit, že skupina lidí (vláda), která získá moc skrze sliby a financování z donucení, bude jednat ve vašem nejlepším zájmu. Anarchokapitalismus nevyžaduje dokonalé lidi – počítá s tím, že lidé jsou chybující a sobečtí. Proto navrhuje systém, kde nikdo nemá moc nutit ostatní a kde špatné služby zkrachují místo toho, aby dostaly další dotaci.</div>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">Jak by to fungovalo v praxi – jak začít?</button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">Nemusí to být revoluce. Změna může být postupná: decentralizace, snižování daní, deregulace, privatizace služeb, podpora konkurence. Každý krok směrem k větší svobodě a menšímu donucení je krok správným směrem. A vy osobně? Můžete začít vzděláváním, podporou lokálních podnikatelů, používáním kryptoměn a odmítáním narativu, že bez státu by nastal chaos.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- EDUCATION -->
 <section class="education" id="skolstvi">
   <div class="container">
@@ -1442,12 +1852,43 @@
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta">
+<!-- APPEAL -->
+<section class="appeal" id="apel">
   <div class="container">
-    <h2>Svoboda není utopie.<br>Je to <span style="color: var(--gold);">volba.</span></h2>
-    <p>Každý krok k dobrovolnosti a pryč od donucení je krok správným směrem. Začněte se ptát – a přestaňte přijímat věci tak, jak jsou.</p>
-    <a href="#principy" class="btn btn-gold">Přečíst znovu principy</a>
+    <div class="appeal-content">
+      <span class="appeal-icon">🔥</span>
+      <h2>Tohle všechno se <span class="red">děje</span>.<br>A lidé <span class="red">nečinně přihlíží</span>.</h2>
+
+      <div class="appeal-quote">
+        „Nejhorší forma tyranie je ta, která se maskuje jako ochrana občanů."
+      </div>
+
+      <div class="appeal-blocks">
+        <div class="appeal-block danger">
+          <h3>Stát neroste omylem</h3>
+          <p>Každá krize je záminkou pro nové pravomoci. Každý zákon je dalším řetězem. Každá regulace je dalším krokem k totální kontrole. Stát nikdy nevrací to, co si vzal.</p>
+        </div>
+        <div class="appeal-block danger">
+          <h3>Svoboda mizí pomalu</h3>
+          <p>Neprobudíte se v diktatuře přes noc. Totalita přichází po malých krocích — sledování, regulace, cenzura, zákazy. A při každém kroku tleská většina, protože „je to pro naše dobro".</p>
+        </div>
+        <div class="appeal-block danger">
+          <h3>Historie se opakuje</h3>
+          <p>Každý totalitní režim začínal sliby o bezpečnosti a spravedlnosti. Každý vyžadoval jen „trochu více moci". Každý tvrdil, že to dělá pro lid. A lid tleskl — dokud nezačal mizet.</p>
+        </div>
+        <div class="appeal-block hope">
+          <h3>Existuje jiná cesta</h3>
+          <p>Nemusíme pokračovat směrem k propasti. Každé odmítnutí státní kontroly, každá dobrovolná spolupráce, každý svobodný obchod je krokem zpět od okraje. Budoucnost patří těm, kdo odmítnou poslušnost.</p>
+        </div>
+      </div>
+
+      <p class="appeal-final">
+        Stát není váš přítel. Stát není váš ochránce. <strong>Stát je instituce, která žije z vašich peněz a z vašeho strachu.</strong> Čím víc mu dáte, tím víc bude chtít. Čím víc budete ticho, tím hlasitěji bude poroučet.<br><br>
+        <strong>Otevřete oči. Přestaňte tleskat. Vydejte se opačnou cestou — cestou svobody — dokud je ještě čas.</strong>
+      </p>
+
+      <a href="#zdroje" class="btn btn-gold">Kam dál?</a>
+    </div>
   </div>
 </section>
 
@@ -1472,16 +1913,6 @@
   });
   navLinks.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => navLinks.classList.remove('open'));
-  });
-
-  // FAQ accordion
-  document.querySelectorAll('.faq-question').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const item = btn.parentElement;
-      const wasOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-      if (!wasOpen) item.classList.add('open');
-    });
   });
 
   // Counter animation
@@ -1527,7 +1958,7 @@ const taxObserver = new IntersectionObserver((entries) => {
   }, { threshold: 0.5 });
   taxBars.forEach(b => taxObserver.observe(b));
 
-  const revealEls = document.querySelectorAll('.problem-card, .principle-card, .nap-content, .timeline-item, .origin-bottom, .example-card, .quote-card, .tax-item, .tax-where-card, .tax-verdict, .edu-card, .roadmap-step, .resource-card, .faq-item');
+  const revealEls = document.querySelectorAll('.myth-card, .principle-card, .nap-content, .timeline-item, .origin-bottom, .example-card, .quote-card, .tax-item, .tax-where-card, .tax-calc, .tax-verdict, .appeal-block, .edu-card, .roadmap-step, .resource-card');
   const revealStyle = document.createElement('style');
   revealStyle.textContent = `
     .reveal-hidden { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
@@ -1561,6 +1992,45 @@ const taxObserver = new IntersectionObserver((entries) => {
       p.style.animationDelay = (Math.random() * 10) + 's';
       particleContainer.appendChild(p);
     }
+  }
+
+  // Tax calculator
+  const grossInput = document.getElementById('grossSalary');
+  if (grossInput) {
+    const fmt = (n) => Math.round(n).toLocaleString('cs-CZ');
+    const calc = () => {
+      const gross = parseInt(grossInput.value) || 0;
+      const healthEmployer = gross * 0.09;
+      const socialEmployer = gross * 0.248;
+      const superGross = gross + healthEmployer + socialEmployer;
+      const healthEmployee = gross * 0.065;
+      const socialEmployee = gross * 0.065;
+      const incomeTax = Math.max(gross * 0.15 - 2570, 0);
+      const net = gross - healthEmployee - socialEmployee - incomeTax;
+      const dphEstimate = net * 0.17;
+      const totalTax = superGross - net + dphEstimate;
+      const pct = superGross > 0 ? ((totalTax / superGross) * 100) : 0;
+
+      document.getElementById('tcSuperGross').textContent = fmt(superGross) + ' Kč';
+      document.getElementById('tcTotalTax').textContent = fmt(totalTax) + ' Kč';
+      document.getElementById('tcNet').textContent = fmt(net) + ' Kč';
+      document.getElementById('tcPercent').textContent = pct.toFixed(1) + ' %';
+
+      const bar = document.getElementById('taxBar');
+      if (superGross > 0) {
+        const netAfterDph = net - dphEstimate;
+        bar.innerHTML =
+          '<div class="tcb-income" style="width:' + ((incomeTax/superGross)*100) + '%">Daň</div>' +
+          '<div class="tcb-health-e" style="width:' + ((healthEmployee/superGross)*100) + '%">ZP</div>' +
+          '<div class="tcb-social-e" style="width:' + ((socialEmployee/superGross)*100) + '%">SP</div>' +
+          '<div class="tcb-health-r" style="width:' + ((healthEmployer/superGross)*100) + '%">ZP zam.</div>' +
+          '<div class="tcb-social-r" style="width:' + ((socialEmployer/superGross)*100) + '%">SP zam.</div>' +
+          '<div class="tcb-dph" style="width:' + ((dphEstimate/superGross)*100) + '%">DPH</div>' +
+          '<div class="tcb-net" style="width:' + ((netAfterDph/superGross)*100) + '%">Vám</div>';
+      }
+    };
+    grossInput.addEventListener('input', calc);
+    calc();
   }
 </script>
 
