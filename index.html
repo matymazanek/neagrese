@@ -104,41 +104,67 @@
       background: linear-gradient(135deg, #1a1610 0%, #0d0d0d 100%);
       overflow: hidden;
     }
-    .geo-container { position: relative; width: 100%; height: 100%; }
-    .geo-circle {
-      position: absolute;
-      border: 2px solid rgba(212,168,67,0.3);
-      border-radius: 50%;
-      animation: geoRotate 20s linear infinite;
+    /* ORNAMENT H: NAP s kruhovým orámováním a rotací */
+    .geo-container {
+      position: relative; width: 100%; height: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .geo-circle:nth-child(1) { width: 300px; height: 300px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
-    .geo-circle:nth-child(2) { width: 220px; height: 220px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-duration: 15s; animation-direction: reverse; border-color: rgba(212,168,67,0.5); }
-    .geo-circle:nth-child(3) { width: 140px; height: 140px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-duration: 10s; border-color: var(--gold); }
-    .geo-dot {
+    .geo-nap {
+      font-size: 5rem;
+      font-weight: 900;
+      color: rgba(212,168,67,0.12);
+      letter-spacing: 0.3em;
+      position: relative;
+      z-index: 2;
+    }
+    .geo-ring-outer {
       position: absolute;
-      width: 8px; height: 8px;
-      background: var(--gold);
-      border-radius: 50%;
       top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 20px rgba(212,168,67,0.6);
+      transform: translate(-50%,-50%);
+      border-radius: 50%;
+      border: 1px solid rgba(212,168,67,0.1);
     }
-    .geo-line {
-      position: absolute;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(212,168,67,0.4), transparent);
-      top: 50%; left: 10%; right: 10%;
-      animation: geoFade 4s ease-in-out infinite;
+    .geo-ring-outer:nth-child(2) {
+      width: 200px; height: 200px;
+      animation: ringRotate 30s linear infinite;
+      border-style: dashed;
+      border-color: rgba(212,168,67,0.08);
     }
-    .geo-line:nth-child(5) { transform: rotate(60deg); animation-delay: 1s; }
-    .geo-line:nth-child(6) { transform: rotate(120deg); animation-delay: 2s; }
-    @keyframes geoRotate {
-      from { transform: translate(-50%,-50%) rotate(0deg); }
+    .geo-ring-outer:nth-child(3) {
+      width: 280px; height: 280px;
+      animation: ringRotate 45s linear infinite reverse;
+    }
+    .geo-ring-outer:nth-child(4) {
+      width: 360px; height: 360px;
+      animation: ringRotate 60s linear infinite;
+      border-style: dotted;
+      border-color: rgba(212,168,67,0.06);
+    }
+    @keyframes ringRotate {
       to { transform: translate(-50%,-50%) rotate(360deg); }
     }
-    @keyframes geoFade {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 0.8; }
+    .geo-corner {
+      position: absolute;
+      width: 30px; height: 30px;
+      border-color: rgba(212,168,67,0.15);
+      border-style: solid;
+      border-width: 0;
+    }
+    .geo-corner:nth-child(5) { top: 15%; left: 15%; border-top-width: 1px; border-left-width: 1px; }
+    .geo-corner:nth-child(6) { top: 15%; right: 15%; border-top-width: 1px; border-right-width: 1px; }
+    .geo-corner:nth-child(7) { bottom: 15%; left: 15%; border-bottom-width: 1px; border-left-width: 1px; }
+    .geo-corner:nth-child(8) { bottom: 15%; right: 15%; border-bottom-width: 1px; border-right-width: 1px; }
+    .geo-fulltext {
+      position: absolute;
+      bottom: 25%;
+      font-size: 0.6rem;
+      letter-spacing: 0.4em;
+      color: rgba(212,168,67,0.2);
+      text-transform: uppercase;
+      font-weight: 300;
     }
     .hero h1 {
       text-align: left;
@@ -187,9 +213,10 @@
         height: 250px;
         order: -1;
       }
-      .geo-circle:nth-child(1) { width: 180px; height: 180px; }
-      .geo-circle:nth-child(2) { width: 130px; height: 130px; }
-      .geo-circle:nth-child(3) { width: 80px; height: 80px; }
+      .geo-nap { font-size: 3rem; }
+      .geo-ring-outer:nth-child(2) { width: 140px; height: 140px; }
+      .geo-ring-outer:nth-child(3) { width: 200px; height: 200px; }
+      .geo-ring-outer:nth-child(4) { width: 260px; height: 260px; }
       .hero-left {
         padding: 2rem 1.5rem 3rem;
       }
@@ -1236,18 +1263,18 @@
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="logo">SKUTEČNÁ SVOBODA</div>
+  <div class="logo">Chceme svobodu?</div>
   <div class="links" id="navLinks">
     <a href="#problemy">Problémy</a>
-    <a href="#dane">Daně</a>
-    <a href="#principy">Principy</a>
-    <a href="#nap">NAP</a>
     <a href="#vznik-statu">Vznik států</a>
+    <a href="#dane">Daně</a>
+    <a href="#nap">NAP</a>
+    <a href="#principy">Principy</a>
     <a href="#priklady">Příklady</a>
-    <a href="#citaty">Citáty</a>
     <a href="#skolstvi">Školství</a>
     <a href="#cesta">Cesta</a>
     <a href="#zdroje">Zdroje</a>
+    <a href="#citaty">Citáty</a>
     <a href="#apel">Otevřme oči</a>
   </div>
   <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -1284,25 +1311,20 @@
           <span class="number" data-target="42">0</span>
           <span class="label">% lidí nedůvěřuje vládě</span>
         </div>
-        <div class="stat">
-          <span class="number" data-target="15">0</span>
-          <span class="label">tisíc úředníků přibylo za 10 let</span>
-        </div>
-        <div class="stat">
-          <span class="number" data-target="53">0</span>
-          <span class="label">% státních zakázek s jedním uchazečem</span>
-        </div>
       </div>
     </div>
   </div>
   <div class="hero-right">
     <div class="geo-container">
-      <div class="geo-circle"></div>
-      <div class="geo-circle"></div>
-      <div class="geo-circle"></div>
-      <div class="geo-dot"></div>
-      <div class="geo-line"></div>
-      <div class="geo-line"></div>
+      <div class="geo-nap">NAP</div>
+      <div class="geo-ring-outer"></div>
+      <div class="geo-ring-outer"></div>
+      <div class="geo-ring-outer"></div>
+      <div class="geo-corner"></div>
+      <div class="geo-corner"></div>
+      <div class="geo-corner"></div>
+      <div class="geo-corner"></div>
+      <div class="geo-fulltext">Non-Aggression Principle</div>
     </div>
   </div>
 </section>
@@ -1318,23 +1340,6 @@
       <div class="myth-card" onclick="this.classList.toggle('flipped')">
         <div class="myth-card-inner">
           <div class="myth-front">
-            <span class="myth-icon">💸</span>
-            <span class="myth-tag">Mýtus</span>
-            <h3>„Platíte jen 15 % daň z příjmu"</h3>
-            <div class="myth-hint">Klikněte pro realitu</div>
-          </div>
-          <div class="myth-back">
-            <span class="myth-tag">Realita</span>
-            <h3>Skutečná zátěž je přes 60 %</h3>
-            <p>Daň z příjmu, sociální a zdravotní odvody (i za zaměstnavatele), DPH, spotřební daně... Pracujete do léta pro stát, zbytek roku pro sebe.</p>
-            <div class="myth-hint">Klikněte pro návrat</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="myth-card" onclick="this.classList.toggle('flipped')">
-        <div class="myth-card-inner">
-          <div class="myth-front">
             <span class="myth-icon">🏗️</span>
             <span class="myth-tag">Mýtus</span>
             <h3>„Bez státu by nikdo nestavěl silnice"</h3>
@@ -1344,40 +1349,6 @@
             <span class="myth-tag">Realita</span>
             <h3>Stát silnice nestaví — jen zadává zakázky</h3>
             <p>Silnice staví soukromé firmy. Stát jen vybere daně, přidá byrokracii a korupci, a zaplatí trojnásobek. Soukromý sektor to umí levněji a rychleji.</p>
-            <div class="myth-hint">Klikněte pro návrat</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="myth-card" onclick="this.classList.toggle('flipped')">
-        <div class="myth-card-inner">
-          <div class="myth-front">
-            <span class="myth-icon">🏦</span>
-            <span class="myth-tag">Mýtus</span>
-            <h3>„Centrální banka chrání ekonomiku"</h3>
-            <div class="myth-hint">Klikněte pro realitu</div>
-          </div>
-          <div class="myth-back">
-            <span class="myth-tag">Realita</span>
-            <h3>Centrální banka způsobuje inflaci</h3>
-            <p>Tiskne peníze, znehodnocuje úspory a vytváří ekonomické bubliny. Vaše koruna dnes koupí zlomek toho, co před 20 lety. To není přirozené — to je politika.</p>
-            <div class="myth-hint">Klikněte pro návrat</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="myth-card" onclick="this.classList.toggle('flipped')">
-        <div class="myth-card-inner">
-          <div class="myth-front">
-            <span class="myth-icon">🛡️</span>
-            <span class="myth-tag">Mýtus</span>
-            <h3>„Bez policie by nastal chaos"</h3>
-            <div class="myth-hint">Klikněte pro realitu</div>
-          </div>
-          <div class="myth-back">
-            <span class="myth-tag">Realita</span>
-            <h3>Soukromá bezpečnost je efektivnější</h3>
-            <p>Už dnes existuje víc soukromých bezpečnostních pracovníků než policistů. Rozdíl? Soukromá firma přijde o zákazníky, když selže. Státní policie ne.</p>
             <div class="myth-hint">Klikněte pro návrat</div>
           </div>
         </div>
@@ -1420,6 +1391,49 @@
   </div>
 </section>
 
+<!-- ORIGIN OF STATES -->
+<section class="origin" id="vznik-statu">
+  <div class="container">
+    <div class="section-label">Nepříjemná pravda</div>
+    <h2 class="section-title" style="color: var(--white);">Jak ve skutečnosti vznikají státy?</h2>
+    <p class="section-subtitle">Učebnice občanské výchovy mluví o „společenské smlouvě". Realita je jiná. Žádný stát v historii nevznikl mírumilovnou dohodou všech občanů.</p>
+
+    <p class="origin-intro">Stát není výsledek dobrovolné spolupráce. Je to instituce, která vznikla násilím, dobýváním a podrobením – a tuto podstatu si udržuje dodnes. Mění se jen rétorika.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <h3>Dobývání a loupení</h3>
+        <p>Většina historických států vznikla tak, že ozbrojená skupina podrobila mírumilovné obyvatelstvo. Vikingové, Římané, Mongolové – vzorec je vždy stejný: násilím získat kontrolu, pak vybírat daně jako „ochranu".</p>
+      </div>
+      <div class="timeline-item">
+        <h3>Mýtus společenské smlouvy</h3>
+        <p>Žádnou smlouvu jste nikdy nepodepsali. Nikdo se vás neptal, jestli souhlasíte. „Společenská smlouva" je fikce, kterou stát ospravedlňuje své násilí. Zkuste ji „vypovědět" – zjistíte, že je to jednostranný diktát.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>Stát jako monopol na násilí</h3>
+        <p>Max Weber definoval stát jako entitu s monopolem na legitimní užití násilí na daném území. Ne služba, ne smlouva – monopol na násilí. A tento monopol si nikdo nevybral.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>Ochranný racket</h3>
+        <p>Stát funguje jako mafia: vybírá „poplatky za ochranu" (daně), a pokud nezaplatíte, použije proti vám násilí. Rozdíl? Mafia aspoň nepředstírá, že to dělá pro vaše dobro.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>Moderní kolonialismus</h3>
+        <p>Hranice Afriky a Blízkého východu nakreslili evropští úředníci u stolu. Miliony lidí se ze dne na den ocitly v umělých státech, které si nevybraly. Výsledkem jsou konflikty trvající dodnes.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>Demokracie to neřeší</h3>
+        <p>Že si můžete vybrat, kdo vás bude ovládat, neznamená, že jste svobodní. Dva vlci a ovce hlasující o večeři – to je demokracie. Většina nemá morální právo vládnout menšině.</p>
+      </div>
+    </div>
+
+    <div class="origin-bottom">
+      <h3>Co z toho plyne?</h3>
+      <p>Pokud stát nevznikl dobrovolně a udržuje se donucením, pak nemá žádnou morální legitimitu vyžadovat poslušnost. Stejně jako byste nerespektovali smlouvu, kterou jste nikdy nepodepsali, nemáte důvod přijímat autoritu, o kterou jste nikdy nežádali.</p>
+    </div>
+  </div>
+</section>
+
 <!-- TAXES -->
 <section class="taxes" id="dane">
   <div class="container">
@@ -1434,42 +1448,6 @@
       </div>
       <div class="tax-bar">
         <div class="tax-bar-fill" data-width="63"></div>
-      </div>
-    </div>
-
-    <h3 style="font-size: 1.2rem; margin-bottom: 1.2rem;">Z čeho se to skládá?</h3>
-    <div class="tax-breakdown">
-      <div class="tax-item">
-        <span class="tax-pct">15 %</span>
-        <span class="tax-name">Daň z příjmu</span>
-      </div>
-      <div class="tax-item">
-        <span class="tax-pct">6,5 %</span>
-        <span class="tax-name">Zdravotní pojištění (zaměstnanec)</span>
-      </div>
-      <div class="tax-item">
-        <span class="tax-pct">6,5 %</span>
-        <span class="tax-name">Sociální pojištění (zaměstnanec)</span>
-      </div>
-      <div class="tax-item">
-        <span class="tax-pct">9 %</span>
-        <span class="tax-name">Zdravotní (zaměstnavatel)</span>
-      </div>
-      <div class="tax-item">
-        <span class="tax-pct">24,8 %</span>
-        <span class="tax-name">Sociální (zaměstnavatel)</span>
-      </div>
-      <div class="tax-item">
-        <span class="tax-pct">21 %</span>
-        <span class="tax-name">DPH na většinu zboží</span>
-      </div>
-      <div class="tax-item">
-        <span class="tax-pct">?? %</span>
-        <span class="tax-name">Spotřební daně (palivo, alkohol, tabák)</span>
-      </div>
-      <div class="tax-item">
-        <span class="tax-pct">?? %</span>
-        <span class="tax-name">Daň z nemovitosti, silniční, ekologická...</span>
       </div>
     </div>
 
@@ -1542,6 +1520,41 @@
   </div>
 </section>
 
+<!-- NAP -->
+<section class="nap" id="nap">
+  <div class="container">
+    <div class="section-label">Klíčový princip</div>
+    <h2 class="section-title">Princip neagrese (NAP)</h2>
+    <p class="section-subtitle">Non-Aggression Principle je etický základ celého anarchokapitalismu. Jedno jednoduché pravidlo, ze kterého vyplývá vše ostatní.</p>
+
+    <div class="nap-content">
+      <div class="nap-visual">
+        <div class="nap-circle">
+          <span class="nap-icon">🛡️</span>
+          <span class="nap-label">NAP</span>
+          <span class="nap-sublabel">Non-Aggression Principle</span>
+        </div>
+      </div>
+      <div class="nap-text">
+        <h3>Co NAP říká?</h3>
+        <p>Nikdo nemá právo iniciovat násilí, hrozbu násilím ani podvod vůči druhé osobě nebo jejímu majetku. Obrana proti agresi je legitimní – útok nikdy.</p>
+
+        <h3>Co z toho vyplývá?</h3>
+        <ul class="nap-points">
+          <li>Daně jsou násilné vybírání peněz – pokud nezaplatíte, přijdou ozbrojení lidé</li>
+          <li>Branná povinnost je nucená práce pod hrozbou vězení</li>
+          <li>Regulace a zákazy jsou agresí vůči mírumilovným lidem</li>
+          <li>Stát porušuje NAP svou samotnou existencí – financuje se donucením</li>
+          <li>Každý člověk má právo na sebeobranu sebe i svého majetku</li>
+        </ul>
+
+        <h3>NAP není pacifismus</h3>
+        <p>NAP nezakazuje násilí jako takové – zakazuje jeho iniciaci. Pokud vás někdo napadne, máte plné právo se bránit. Pokud někdo krade váš majetek, máte právo ho chránit. Rozdíl je v tom, kdo začal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PRINCIPLES -->
 <section class="principles" id="principy">
   <div class="container">
@@ -1584,84 +1597,6 @@
   </div>
 </section>
 
-<!-- NAP -->
-<section class="nap" id="nap">
-  <div class="container">
-    <div class="section-label">Klíčový princip</div>
-    <h2 class="section-title">Princip neagrese (NAP)</h2>
-    <p class="section-subtitle">Non-Aggression Principle je etický základ celého anarchokapitalismu. Jedno jednoduché pravidlo, ze kterého vyplývá vše ostatní.</p>
-
-    <div class="nap-content">
-      <div class="nap-visual">
-        <div class="nap-circle">
-          <span class="nap-icon">🛡️</span>
-          <span class="nap-label">NAP</span>
-          <span class="nap-sublabel">Non-Aggression Principle</span>
-        </div>
-      </div>
-      <div class="nap-text">
-        <h3>Co NAP říká?</h3>
-        <p>Nikdo nemá právo iniciovat násilí, hrozbu násilím ani podvod vůči druhé osobě nebo jejímu majetku. Obrana proti agresi je legitimní – útok nikdy.</p>
-
-        <h3>Co z toho vyplývá?</h3>
-        <ul class="nap-points">
-          <li>Daně jsou násilné vybírání peněz – pokud nezaplatíte, přijdou ozbrojení lidé</li>
-          <li>Branná povinnost je nucená práce pod hrozbou vězení</li>
-          <li>Regulace a zákazy jsou agresí vůči mírumilovným lidem</li>
-          <li>Stát porušuje NAP svou samotnou existencí – financuje se donucením</li>
-          <li>Každý člověk má právo na sebeobranu sebe i svého majetku</li>
-        </ul>
-
-        <h3>NAP není pacifismus</h3>
-        <p>NAP nezakazuje násilí jako takové – zakazuje jeho iniciaci. Pokud vás někdo napadne, máte plné právo se bránit. Pokud někdo krade váš majetek, máte právo ho chránit. Rozdíl je v tom, kdo začal.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ORIGIN OF STATES -->
-<section class="origin" id="vznik-statu">
-  <div class="container">
-    <div class="section-label">Nepříjemná pravda</div>
-    <h2 class="section-title" style="color: var(--white);">Jak ve skutečnosti vznikají státy?</h2>
-    <p class="section-subtitle">Učebnice občanské výchovy mluví o „společenské smlouvě". Realita je jiná. Žádný stát v historii nevznikl mírumilovnou dohodou všech občanů.</p>
-
-    <p class="origin-intro">Stát není výsledek dobrovolné spolupráce. Je to instituce, která vznikla násilím, dobýváním a podrobením – a tuto podstatu si udržuje dodnes. Mění se jen rétorika.</p>
-
-    <div class="timeline">
-      <div class="timeline-item">
-        <h3>Dobývání a loupení</h3>
-        <p>Většina historických států vznikla tak, že ozbrojená skupina podrobila mírumilovné obyvatelstvo. Vikingové, Římané, Mongolové – vzorec je vždy stejný: násilím získat kontrolu, pak vybírat daně jako „ochranu".</p>
-      </div>
-      <div class="timeline-item">
-        <h3>Mýtus společenské smlouvy</h3>
-        <p>Žádnou smlouvu jste nikdy nepodepsali. Nikdo se vás neptal, jestli souhlasíte. „Společenská smlouva" je fikce, kterou stát ospravedlňuje své násilí. Zkuste ji „vypovědět" – zjistíte, že je to jednostranný diktát.</p>
-      </div>
-      <div class="timeline-item">
-        <h3>Stát jako monopol na násilí</h3>
-        <p>Max Weber definoval stát jako entitu s monopolem na legitimní užití násilí na daném území. Ne služba, ne smlouva – monopol na násilí. A tento monopol si nikdo nevybral.</p>
-      </div>
-      <div class="timeline-item">
-        <h3>Ochranný racket</h3>
-        <p>Stát funguje jako mafia: vybírá „poplatky za ochranu" (daně), a pokud nezaplatíte, použije proti vám násilí. Rozdíl? Mafia aspoň nepředstírá, že to dělá pro vaše dobro.</p>
-      </div>
-      <div class="timeline-item">
-        <h3>Moderní kolonialismus</h3>
-        <p>Hranice Afriky a Blízkého východu nakreslili evropští úředníci u stolu. Miliony lidí se ze dne na den ocitly v umělých státech, které si nevybraly. Výsledkem jsou konflikty trvající dodnes.</p>
-      </div>
-      <div class="timeline-item">
-        <h3>Demokracie to neřeší</h3>
-        <p>Že si můžete vybrat, kdo vás bude ovládat, neznamená, že jste svobodní. Dva vlci a ovce hlasující o večeři – to je demokracie. Většina nemá morální právo vládnout menšině.</p>
-      </div>
-    </div>
-
-    <div class="origin-bottom">
-      <h3>Co z toho plyne?</h3>
-      <p>Pokud stát nevznikl dobrovolně a udržuje se donucením, pak nemá žádnou morální legitimitu vyžadovat poslušnost. Stejně jako byste nerespektovali smlouvu, kterou jste nikdy nepodepsali, nemáte důvod přijímat autoritu, o kterou jste nikdy nežádali.</p>
-    </div>
-  </div>
-</section>
-
 <!-- EXAMPLES -->
 <section class="examples" id="priklady">
   <div class="container">
@@ -1699,48 +1634,6 @@
         <span class="tag">Každodenní</span>
         <h3>Váš běžný den</h3>
         <p>Snídani jste si koupili dobrovolně, v práci jste na základě smlouvy, s přáteli jste bez donucení. Většina vašeho života už funguje anarchokapitalisticky.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- QUOTES -->
-<section class="quotes" id="citaty">
-  <div class="container">
-    <div class="section-label">Myšlenky velikánů</div>
-    <h2 class="section-title">Co říkali ti, kdo to promysleli</h2>
-    <p class="section-subtitle">Libertariánské myšlení má hluboké kořeny. Tady jsou slova těch, kteří je formulovali nejlépe.</p>
-
-    <div class="quotes-grid">
-      <div class="quote-card">
-        <blockquote>Stát je ta velká fikce, skrze kterou se každý snaží žít na úkor všech ostatních.</blockquote>
-        <div class="author">Frédéric Bastiat</div>
-        <div class="author-title">Ekonom a filosof, 1801–1850</div>
-      </div>
-      <div class="quote-card">
-        <blockquote>Pokud je svoboda vůbec něco, pak je to právo říkat lidem to, co nechtějí slyšet.</blockquote>
-        <div class="author">Murray Rothbard</div>
-        <div class="author-title">Zakladatel anarchokapitalismu, 1926–1995</div>
-      </div>
-      <div class="quote-card">
-        <blockquote>Vláda je jediná instituce, která dokáže vzít cenný statek jako papír, potisknout ho inkoustem – a udělat ho bezcenným.</blockquote>
-        <div class="author">Ludwig von Mises</div>
-        <div class="author-title">Ekonom Rakouské školy, 1881–1973</div>
-      </div>
-      <div class="quote-card">
-        <blockquote>Cesta ke zotročení bývá dlážděna dobrými úmysly těch, kdo chtějí plánovat životy ostatních.</blockquote>
-        <div class="author">Friedrich A. Hayek</div>
-        <div class="author-title">Nositel Nobelovy ceny za ekonomii, 1899–1992</div>
-      </div>
-      <div class="quote-card">
-        <blockquote>Žádný člověk nemá přirozené právo dopouštět se agrese vůči právům druhých – a to je vše, čím vláda by měla být.</blockquote>
-        <div class="author">Thomas Jefferson</div>
-        <div class="author-title">3. prezident USA, 1743–1826</div>
-      </div>
-      <div class="quote-card">
-        <blockquote>Nejlepší vláda je ta, která vládne nejméně, protože její lid se řídí sám.</blockquote>
-        <div class="author">Henry David Thoreau</div>
-        <div class="author-title">Filosof a spisovatel, 1817–1862</div>
       </div>
     </div>
   </div>
@@ -1847,6 +1740,48 @@
         <h3>Komunity</h3>
         <p>Připojte se k diskuzím na sociálních sítích, navštivte lokální libertariánské meetupy nebo konference.</p>
         <a href="https://libinst.cz" target="_blank" rel="noopener">libinst.cz &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTES -->
+<section class="quotes" id="citaty">
+  <div class="container">
+    <div class="section-label">Myšlenky velikánů</div>
+    <h2 class="section-title">Co říkali ti, kdo to promysleli</h2>
+    <p class="section-subtitle">Libertariánské myšlení má hluboké kořeny. Tady jsou slova těch, kteří je formulovali nejlépe.</p>
+
+    <div class="quotes-grid">
+      <div class="quote-card">
+        <blockquote>Stát je ta velká fikce, skrze kterou se každý snaží žít na úkor všech ostatních.</blockquote>
+        <div class="author">Frédéric Bastiat</div>
+        <div class="author-title">Ekonom a filosof, 1801–1850</div>
+      </div>
+      <div class="quote-card">
+        <blockquote>Pokud je svoboda vůbec něco, pak je to právo říkat lidem to, co nechtějí slyšet.</blockquote>
+        <div class="author">Murray Rothbard</div>
+        <div class="author-title">Zakladatel anarchokapitalismu, 1926–1995</div>
+      </div>
+      <div class="quote-card">
+        <blockquote>Vláda je jediná instituce, která dokáže vzít cenný statek jako papír, potisknout ho inkoustem – a udělat ho bezcenným.</blockquote>
+        <div class="author">Ludwig von Mises</div>
+        <div class="author-title">Ekonom Rakouské školy, 1881–1973</div>
+      </div>
+      <div class="quote-card">
+        <blockquote>Cesta ke zotročení bývá dlážděna dobrými úmysly těch, kdo chtějí plánovat životy ostatních.</blockquote>
+        <div class="author">Friedrich A. Hayek</div>
+        <div class="author-title">Nositel Nobelovy ceny za ekonomii, 1899–1992</div>
+      </div>
+      <div class="quote-card">
+        <blockquote>Žádný člověk nemá přirozené právo dopouštět se agrese vůči právům druhých – a to je vše, čím vláda by měla být.</blockquote>
+        <div class="author">Thomas Jefferson</div>
+        <div class="author-title">3. prezident USA, 1743–1826</div>
+      </div>
+      <div class="quote-card">
+        <blockquote>Nejlepší vláda je ta, která vládne nejméně, protože její lid se řídí sám.</blockquote>
+        <div class="author">Henry David Thoreau</div>
+        <div class="author-title">Filosof a spisovatel, 1817–1862</div>
       </div>
     </div>
   </div>
